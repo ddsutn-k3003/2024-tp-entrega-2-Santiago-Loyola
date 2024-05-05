@@ -3,6 +3,7 @@ package ar.edi.itn.dds.k3003.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import ar.edu.utn.dds.k3003.model.SomeDomainObject;
+import ar.edu.utn.dds.k3003.model.exceptions.SomeDomainException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +21,7 @@ public class SomeDomainModelTest {
   }
 
   @Test
-  void testSum() {
+  void testSum() throws SomeDomainException {
     var result = someDomainObject1.sum(someDomainObject2);
     assertEquals("ab", result.getAnAttribute());
     assertEquals(3L, result.getOtherAttribute());
