@@ -23,4 +23,11 @@ public class ColaboradorRepo {
         String.format("No hay una ruta de id: %s", id)
     ));
   }
+  public void remove(Colaborador colaborador){
+    this.colaboradores = new ArrayList<>(this.colaboradores.stream().filter(x -> !x.getId().equals(colaborador.getId())).toList());
+  }
+
+  public Collection<Colaborador> getColaboradores() {
+    return colaboradores;
+  }
 }
