@@ -15,10 +15,10 @@ public class WepApp {
       var colaboradorController = new ColaboradorController(fachada);
 
       app.post("/colaboradores", colaboradorController::agregar);
-      app.get("/colaboradores/{colaboradorId}", colaboradorController:: devolverCol);
-      app.patch("/colaboradores/{colaboradorId}",colaboradorController :: modificarFormas);
-      app.get("/colaboradores/{colaboradorId}/puntos", colaboradorController::obtenerPuntos);
-      app.post("/formula", actualizarPesosSegunFormulaController::actualizar);
+      app.get("/colaboradores/{colaboradorId}", colaboradorController:: buscarXId);
+      app.patch("/colaboradores/{colaboradorId}",colaboradorController :: modificar);
+      app.get("/colaboradores/{colaboradorId}/puntos", colaboradorController::puntos);
+      app.post("/formula", colaboradorController::actualizarPesosPuntos);
 
     }
 

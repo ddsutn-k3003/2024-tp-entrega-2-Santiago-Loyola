@@ -32,7 +32,7 @@ public class ColaboradorController {
     }
   }
 
-  public void devolverCol(@NotNull Context context) {
+  public void buscarXId(@NotNull Context context) {
     var id = context.pathParamAsClass("id", Long.class).get();
     var colDtoRta = fachada.buscarXId(id);
     try {
@@ -49,7 +49,7 @@ public class ColaboradorController {
     }
   }
 
-  public void modificarFormas(@NotNull Context context) {
+  public void modificar(@NotNull Context context) {
     var id = context.pathParamAsClass("id", Long.class).get();
     var colDtoRta = fachada.buscarXId(id);
     try {
@@ -67,7 +67,7 @@ public class ColaboradorController {
     }
   }
 
-  public void obtenerPuntos(@NotNull Context context) {
+  public void puntos(@NotNull Context context) {
     var id = context.pathParamAsClass("id", Long.class).get();
     var colDtoRta = fachada.buscarXId(id);
     try {
@@ -83,5 +83,8 @@ public class ColaboradorController {
       context.status(HttpStatus.NOT_FOUND);
       context.result("Error 404" + e.getMessage());
     }
+  }
+
+  public void actualizarPesosPuntos(@NotNull Context context) {
   }
 }
