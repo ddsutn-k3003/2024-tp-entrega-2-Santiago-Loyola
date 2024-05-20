@@ -9,11 +9,12 @@ import org.jetbrains.annotations.NotNull;
 public class ColaboradorController {
 
   private final Fachada fachada;
+
   public ColaboradorController(Fachada fachada) {
     this.fachada = fachada;
   }
 
-  public void agregar(@NotNull Context context){
+  public void agregar(@NotNull Context context) {
     try {
       var colDto = context.bodyAsClass(ColaboradorDTO.class);
 
@@ -22,52 +23,65 @@ public class ColaboradorController {
       }
       var colDtoRta = this.fachada.agregar(colDto);
       context.json(colDtoRta);
-      context.status(HttpStatus.CREATED);
+      context.status(HttpStatus.OK);
       context.result("Colaborador agregado correctamente");
 
-    } catch (IllegalArgumentException e){
+    } catch (IllegalArgumentException e) {
       context.status(HttpStatus.BAD_REQUEST);
       context.result("Error 400" + e.getMessage());
     }
   }
 
-  public void devolverCol(@NotNull Context context){
+  public void devolverCol(@NotNull Context context) {
     var id = context.pathParamAsClass("id", Long.class).get();
     var colDtoRta = fachada.buscarXId(id);
-    try{
-      if(colDtoRta == null){
+    try {
+      if (colDtoRta == null) {
         throw new IllegalArgumentException("Colaborador no encontrado");
       }
       context.json(colDtoRta);
-      context.status(HttpStatus.ACCEPTED);
+      context.status(HttpStatus.OK);
       context.result("Colaborador encontrado");
 
-    } catch (IllegalArgumentException e){
-      context.status(HttpStatus.BAD_REQUEST);
-      context.result("Error 404"+ e.getMessage());
+    } catch (IllegalArgumentException e) {
+      context.status(HttpStatus.NOT_FOUND);
+      context.result("Error 404" + e.getMessage());
     }
   }
 
-  public void modificarFormas (@NotNull Context context) {
+  public void modificarFormas(@NotNull Context context) {
     var id = context.pathParamAsClass("id", Long.class).get();
-    var colDto = fachada.buscarXId(id);
-    try{
-      if(colDto == null){
+    var colDtoRta = fachada.buscarXId(id);
+    try {
+      if (colDtoRta == null) {
         throw new IllegalArgumentException("Error de solicitud");
       }
-
-      var colDtoRta = fachada.modificar(id,colDto.getFormas());
-      context.json(colDtoRta);
-      context.status(HttpStatus.CREATED);
+      var colDtoRtaF = fachada.modificar(id, colDtoRta.getFormas());
+      context.json(colDtoRtaF);
+      context.status(HttpStatus.OK);
       context.result("Colaborador modificado correctamente");
 
-    } catch (IllegalArgumentException e){
+    } catch (IllegalArgumentException e) {
       context.status(HttpStatus.BAD_REQUEST);
       context.result("Error 400" + e.getMessage());
     }
   }
 
   public void obtenerPuntos(@NotNull Context context) {
+    var id = context.pathParamAsClass("id", Long.class).get();
+    var colDtoRta = fachada.buscarXId(id);
+    try {
+      if (colDtoRta == null) {
+        throw new IllegalArgumentException("Error: response status is 404");
+      }
+      var puntos = fachada.puntos(id);
+      context.json(puntos);
+      context.status(HttpStatus.OK);
+      context.result("Puntos obtenidos correctamente");
 
+    } catch (IllegalArgumentException e) {
+      context.status(HttpStatus.NOT_FOUND);
+      context.result("Error 404" + e.getMessage());
+    }
   }
 }
