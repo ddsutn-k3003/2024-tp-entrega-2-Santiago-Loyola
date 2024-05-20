@@ -10,17 +10,16 @@ public class WepApp {
          app.get("/", ctx -> ctx.result("Hello World"));
 
 
-      var altaColaboradoresController = new AltaColaboradoresController(fachada);
-      var listaDeColaboradoresController = new ListaDeColaboradoresController(fachada);
-      var modificarFormasDeColaborarController = new ModificarFormasDeColaborarController(fachada);
-      var obtenerPuntosController = new ObtenerPuntosController(fachada);
-      var actualizarPesosSegunFormulaController = new ActualizarPesosSegunFormulaController(fachada);
 
-      app.post("/colaboradores", altaColaboradoresController::agregar);
-      app.get("/colaboradores/{colaboradorId}", listaDeColaboradoresController:: devolverCol);
-      app.patch("/colaboradores/{colaboradorId}",modificarFormasDeColaborarController :: modificarFormas);
-      app.get("/colaboradores/{colaboradorId}/puntos", obtenerPuntosController::obtener);
+      var actualizarPesosSegunFormulaController = new ActualizarPesosSegunFormulaController(fachada);
+      var colaboradorController = new ColaboradorController(fachada);
+
+      app.post("/colaboradores", colaboradorController::agregar);
+      app.get("/colaboradores/{colaboradorId}", colaboradorController:: devolverCol);
+      app.patch("/colaboradores/{colaboradorId}",colaboradorController :: modificarFormas);
+      app.get("/colaboradores/{colaboradorId}/puntos", colaboradorController::obtenerPuntos);
       app.post("/formula", actualizarPesosSegunFormulaController::actualizar);
+
     }
 
  /*  private static Consumer<JavalinConfig> config(){
