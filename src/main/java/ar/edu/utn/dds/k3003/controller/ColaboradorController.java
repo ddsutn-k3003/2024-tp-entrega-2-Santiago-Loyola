@@ -86,5 +86,6 @@ public class ColaboradorController {
   }
 
   public void actualizarPesosPuntos(@NotNull Context context) {
+
   }
 }

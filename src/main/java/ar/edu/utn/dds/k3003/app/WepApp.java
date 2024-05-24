@@ -10,15 +10,13 @@ public class WepApp {
          app.get("/", ctx -> ctx.result("Hello World"));
 
 
-
-      var actualizarPesosSegunFormulaController = new ActualizarPesosSegunFormulaController(fachada);
       var colaboradorController = new ColaboradorController(fachada);
 
       app.post("/colaboradores", colaboradorController::agregar);
       app.get("/colaboradores/{colaboradorId}", colaboradorController:: buscarXId);
       app.patch("/colaboradores/{colaboradorId}",colaboradorController :: modificar);
       app.get("/colaboradores/{colaboradorId}/puntos", colaboradorController::puntos);
-      app.post("/formula", colaboradorController::actualizarPesosPuntos);
+      app.put("/formula", colaboradorController::actualizarPesosPuntos);
 
     }
 
