@@ -6,13 +6,29 @@ import ar.edu.utn.dds.k3003.facades.FachadaViandas;
 import ar.edu.utn.dds.k3003.facades.dtos.RutaDTO;
 import ar.edu.utn.dds.k3003.facades.dtos.TrasladoDTO;
 import ar.edu.utn.dds.k3003.facades.exceptions.TrasladoNoAsignableException;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class LogisticaProxy implements FachadaLogistica {
 
+  private String endpoint;
+  private ViandasRetrofitClient service;
+  public void ViandasProxy() {
 
+    var env = System.getenv();
+    this.endpoint = env.getOrDefault("URL_Logistica", "http://localhost:8081/");
+
+    var retrofit =
+        new Retrofit.Builder()
+            .baseUrl(this.endpoint)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+
+    this.service = retrofit.create(ViandasRetrofitClient.class);
+  }
   @Override
   public RutaDTO agregar(RutaDTO rutaDTO) {
     return null;
